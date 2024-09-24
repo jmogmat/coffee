@@ -33,6 +33,21 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->getEntityManager()->flush();
     }
 
+    public function add(User $user): void
+    {
+        if ($this->findOneByEmail($user->getEmail())) {
+            throw new \InvalidArgumentException('El email ya está en uso.');
+        }
+
+        $this->getEntityManager()->persist($user);
+        $this->getEntityManager()->flush();
+    }
+
+    public function findOneByEmail(string $email): ?User
+    {
+        return $this->findOneBy(['email' => $email]);
+    }
+
     //    /**
     //     * @return User[] Returns an array of User objects
     //     */
