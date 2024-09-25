@@ -31,6 +31,6 @@ class UserService
     }
 
     public function activateUser(User $user): void{
-
+      $this->userRepository->updateUser($user);
     }
 }

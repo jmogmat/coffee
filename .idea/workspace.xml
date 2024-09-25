@@ -5,14 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="598fff36-5d08-4e77-be6d-7f21dadd0fdb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/user/register_and_login.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/commandlinetools/Symfony_9_25_24__6_24PM.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/commandlinetools/schemas/frameworkDescriptionVersion1.1.4.xsd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/migrations/Version20240925171459.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/user/login.html.twig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/user/register.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/AccountController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AccountController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/UserRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Mailer/MailService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Mailer/MailService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/User/UserService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/User/UserService.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +32,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP">
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="/bin/php">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/psr/container" />
       <path value="$PROJECT_DIR$/vendor/psr/cache" />
@@ -171,6 +177,7 @@
       <path value="$PROJECT_DIR$/vendor/symfony/google-mailer" />
       <path value="$PROJECT_DIR$/vendor/twig/cssinliner-extra" />
       <path value="$PROJECT_DIR$/vendor/tijsverkoyen/css-to-inline-styles" />
+      <path value="$PROJECT_DIR$/vendor/symfony/sendgrid-mailer" />
     </include_path>
   </component>
   <component name="ProjectColorInfo">{
@@ -203,8 +210,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-PS-241.18034.69" />
-        <option value="bundled-php-predefined-ba97393d7c68-48a1a656d44e-com.jetbrains.php.sharedIndexes-PS-241.18034.69" />
+        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-PS-242.21829.154" />
+        <option value="bundled-php-predefined-a98d8de5180a-4d9f4c849d09-com.jetbrains.php.sharedIndexes-PS-242.21829.154" />
       </set>
     </attachedChunks>
   </component>
@@ -219,6 +226,7 @@
       <workItem from="1726998820756" duration="1305000" />
       <workItem from="1727157625810" duration="472000" />
       <workItem from="1727244351647" duration="4488000" />
+      <workItem from="1727281488842" duration="6229000" />
     </task>
     <servers />
   </component>

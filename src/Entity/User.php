@@ -8,7 +8,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use DateTime;
-use function Symfony\Component\DependencyInjection\Loader\Configurator\service_locator;
+
 
 #[ORM\Table(name: 'users')]
 #[ORM\Index(name: 'u_email', columns: ['email'])]

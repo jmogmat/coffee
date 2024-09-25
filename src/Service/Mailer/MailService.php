@@ -23,8 +23,6 @@ class MailService
         $this->urlGenerator = $urlGenerator;
     }
 
-
-
     public function sendTokenEmail(string $toEmail, string $token): void
     {
         $mailTitle = 'Verificación de cuenta';

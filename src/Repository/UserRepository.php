@@ -69,9 +69,19 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     public function updateUser(User $user): void{
 
-        $user->setRoles(['ROLE_USER']);
+        $currentRoles = $user->getRoles();
 
+        if (!in_array(User::ROLE_USER, $currentRoles, true)) {
+            $currentRoles[] = User::ROLE_USER;
+            $user->setRoles($currentRoles);
+        }
 
+        if(!$user->isActive() && $user->isPending()){
+           $user->setAsActive();
+        }
+
+        $this->getEntityManager()->persist($user);
+        $this->getEntityManager()->flush();
 
     }
 
