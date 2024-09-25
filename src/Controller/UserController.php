@@ -6,86 +6,80 @@ use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Form\LoginFormType;
 use App\Service\Mailer\MailService;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Service\User\UserService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use App\Service\UserService;
 use DateTime;
-use Twig\Error\LoaderError;
-use Twig\Error\RuntimeError;
-use Twig\Error\SyntaxError;
+
 
 
 class UserController extends AbstractController
 {
-    /**
-     * @throws SyntaxError
-     * @throws TransportExceptionInterface
-     * @throws RuntimeError
-     * @throws LoaderError
-     */
-    #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $passwordHasher, UserService $userService, MailService $mailService): Response
+    #[Route('/register-login', name: 'app_register_and_login')]
+    public function register(
+        Request $request,
+        UserPasswordHasherInterface $passwordHasher,
+        UserService $userService,
+        MailService $mailService,
+        AuthenticationUtils $authenticationUtils): Response
     {
-        $form = $this->createForm(RegistrationFormType::class);
-        $form->handleRequest($request);
+        // Formulario de Login
+        $error = $authenticationUtils->getLastAuthenticationError();
+        $lastUsername = $authenticationUtils->getLastUsername();
+        $loginForm = $this->createForm(LoginFormType::class);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
+        // Formulario de Registro
+        $registrationForm = $this->createForm(RegistrationFormType::class);
+        $registrationForm->handleRequest($request);
+
+        if ($registrationForm->isSubmitted() && $registrationForm->isValid()) {
+            $data = $registrationForm->getData();
             $email = $data['email'];
             $password = $data['password'];
-            $existingUser = $userService->existsUserEmail($email);
 
-            if ($existingUser !== null) {
+            $existingUser = $userService->existsUserEmail($email); //Comprobamos si el email existe en la bd
+
+            if ($existingUser !== null) { //Si es un User entonces...
                 if ($existingUser->getRequestedToken() !== null && $existingUser->getRequestedToken() > new DateTime()) {
                     $this->addFlash('error', 'Ya existe un registro con este email. Verifica tu correo para validar tu cuenta.');
-                    return $this->redirectToRoute('app_register');
                 } else {
                     $existingUser->updateToken();
-                    $existingUser->setRequestedToken(new DateTime('+10 minutes'));
+                    $existingUser->setRequestedToken(new DateTime('+24 hours'));
                     $userService->saveUser($existingUser);
                     $mailService->sendTokenEmail($email, $existingUser->getToken());
-                    $this->addFlash('success', 'Se ha reenviado un nuevo token de validación a tu correo.');
-                    return $this->redirectToRoute('app_login');
+                    $this->addFlash('success', 'Se ha reenviado un nuevo email. Verifica tu correo para validar tu cuenta.');
                 }
             } else {
                 $newUser = new User($email);
-                $newUser->setPassword(
-                    $passwordHasher->hashPassword($newUser, $password)
-                );
-                $newUser->setRequestedToken(new \DateTime('+10 minutes'));
+                $newUser->setPassword($passwordHasher->hashPassword($newUser, $password));
+                $newUser->setRequestedToken(new DateTime('+24 hours'));
                 $userService->saveUser($newUser);
-                $mailService->sendTokenEmail($email, $newUser->getToken());
-
+                try {
+                    $mailService->sendTokenEmail($email, $newUser->getToken());
+                } catch (Exception $e) {
+                    $this->addFlash('error', 'No se pudo enviar el correo: ' . $e->getMessage());
+                    return $this->redirectToRoute('app_register');
+                }
                 $this->addFlash('success', 'Registro exitoso. Verifica tu correo para validar tu cuenta.');
-                return $this->redirectToRoute('app_login');
             }
         }
 
-        return $this->render('user/register.html.twig', [
-            'registrationForm' => $form->createView(),
+        return $this->render('user/register_and_login.html.twig', [
+            'registrationForm' => $registrationForm->createView(),
+            'form' => $loginForm->createView(),
+            'error' => $error,
+            'last_username' => $lastUsername
         ]);
-    }
-
-    #[Route('/login', name: 'app_login')]
-    public function login(AuthenticationUtils $authenticationUtils): Response
-    {
-        $error = $authenticationUtils->getLastAuthenticationError();
-        $lastUsername = $authenticationUtils->getLastUsername();
-        return $this->render('user/login.html.twig', [
-            'last_username' => $lastUsername,
-            'error'         => $error,
-            'form' => $this->createForm(LoginFormType::class)->createView(),
-        ]);
-    }
+        }
 
     #[Route('/logout', name: 'app_logout')]
     public function logout(): void
     {
     }
+
+
 }

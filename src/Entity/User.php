@@ -8,6 +8,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use DateTime;
+use function Symfony\Component\DependencyInjection\Loader\Configurator\service_locator;
 
 #[ORM\Table(name: 'users')]
 #[ORM\Index(name: 'u_email', columns: ['email'])]
@@ -18,6 +19,9 @@ use DateTime;
 #[UniqueEntity(fields: ['email'], errorPath: 'email', message: 'Este Email ya está en uso')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface, SoftDeleteableInterface
 {
+
+    final public const ROLE_USER = 'ROLE_USER';
+    final public const ROLE_ADMIN = 'ROLE_ADMIN';
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -100,7 +104,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, SoftDel
     public function getRoles(): array
     {
         $roles = $this->roles;
-        $roles[] = 'ROLE_USER';
+        $roles[] = self::ROLE_USER;
         return array_unique($roles);
     }
 

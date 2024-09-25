@@ -2,46 +2,52 @@
 
 namespace App\Service\Mailer;
 
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
+use Symfony\Component\Mime\Address;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
-use Twig\Error\LoaderError;
-use Twig\Error\RuntimeError;
-use Twig\Error\SyntaxError;
+use RuntimeException;
+use Symfony\Component\Mailer\Transport;
+use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mime\Email;
 
 class MailService
 {
-    private MailerInterface $mailer;
-    private Environment $twig;
-
-    public function __construct(MailerInterface $mailer, Environment $twig)
-    {
-        $this->mailer = $mailer;
-        $this->twig = $twig;
+    public function __construct(
+        private readonly MailerInterface $mailer,
+        private readonly Environment $twig,
+        UrlGeneratorInterface $urlGenerator
+    ) {
+        $this->urlGenerator = $urlGenerator;
     }
 
-    /**
-     * @throws SyntaxError
-     * @throws TransportExceptionInterface
-     * @throws RuntimeError
-     * @throws LoaderError
-     */
-    public function sendTokenEmail(string $email, string $token): void
+
+
+    public function sendTokenEmail(string $toEmail, string $token): void
     {
-        $htmlContent = $this->twig->render('emails/verification.html.twig', [
-            'token' => $token
-        ]);
-        $emailMessage = (new Email())
-            ->from('matias.xilon@gmail.com')
-            ->to($email)
-            ->subject('Verificación de cuenta')
-            ->html($htmlContent);
-        $this->mailer->send($emailMessage);
-        try {
-            $this->mailer->send($emailMessage);
-        } catch (TransportExceptionInterface $e) {
-            throw new RuntimeException('No se pudo enviar el correo electrónico: ' . $e->getMessage());
-        }
+        $mailTitle = 'Verificación de cuenta';
+        $url = $this->generateUrl('verify_account', ['token' => $token]);
+
+        $email = (new TemplatedEmail())
+            ->from(new Address('matias.xilon@gmail.com', 'Matias Xilon'))
+            ->to(new Address($toEmail))
+            ->html(
+                sprintf(
+                    'Gracias por registrarte. Por favor, haz clic en el siguiente enlace para verificar tu cuenta: <a href="%s">%s</a>',
+                    $url,
+                    $url
+                )
+            );
+            $this->mailer->send($email);
+
     }
+
+    public function generateUrl(string $route, array $parameters = []): string
+    {
+        return $this->urlGenerator->generate($route, $parameters, UrlGeneratorInterface::ABSOLUTE_URL);
+    }
+
+
 }

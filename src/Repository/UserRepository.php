@@ -8,6 +8,8 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
+use DateTime;
+
 
 /**
  * @extends ServiceEntityRepository<User>
@@ -46,6 +48,31 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function findOneByEmail(string $email): ?User
     {
         return $this->findOneBy(['email' => $email]);
+    }
+
+    public function findOneByToken($token): ?User{
+        return $this->findOneBy(['token' => $token]);
+    }
+
+    public function tokenIsValid(User $user): bool{
+
+        $expirationDate = new DateTime('-24 hours');
+        $qb = $this->createQueryBuilder('u');
+        $qb->andWhere($qb->expr()->eq('token', ':token'));
+        $qb->andWhere($qb->expr()->gt('u.requestedToken', ':expirationDate'));
+        $qb->setParameter('token', $user->getToken());
+        $qb->setParameter('expirationDate', $expirationDate);
+        $result = $qb->getQuery()->getOneOrNullResult();
+        return $result !== null;
+
+    }
+
+    public function updateUser(User $user): void{
+
+        $user->setRoles(['ROLE_USER']);
+
+
+
     }
 
     //    /**
