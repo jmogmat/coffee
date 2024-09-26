@@ -58,13 +58,11 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
         $expirationDate = new DateTime('-24 hours');
         $qb = $this->createQueryBuilder('u');
-        $qb->andWhere($qb->expr()->eq('token', ':token'));
+        $qb->andWhere($qb->expr()->eq('u.token', ':token'));
         $qb->andWhere($qb->expr()->gt('u.requestedToken', ':expirationDate'));
         $qb->setParameter('token', $user->getToken());
         $qb->setParameter('expirationDate', $expirationDate);
-        $result = $qb->getQuery()->getOneOrNullResult();
-        return $result !== null;
-
+        return $qb->getQuery()->getOneOrNullResult();
     }
 
     public function updateUser(User $user): void{

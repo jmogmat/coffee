@@ -23,6 +23,9 @@ class MailService
         $this->urlGenerator = $urlGenerator;
     }
 
+    /**
+     * @throws TransportExceptionInterface
+     */
     public function sendTokenEmail(string $toEmail, string $token): void
     {
         $mailTitle = 'Verificación de cuenta';

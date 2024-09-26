@@ -56,6 +56,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, SoftDel
     private ?DateTime $updatedAt = null;
 
 
+
     public function __construct(#[ORM\Column(type: 'string', length: 255, nullable: false, unique: false)]
                                 private string $email)
     {

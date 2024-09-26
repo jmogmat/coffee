@@ -14,9 +14,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use DateTime;
-
-
-
 class UserController extends AbstractController
 {
     #[Route('/register-login', name: 'app_register_and_login')]
@@ -47,24 +44,35 @@ class UserController extends AbstractController
                 if ($existingUser->getRequestedToken() !== null && $existingUser->getRequestedToken() > new DateTime()) {
                     $this->addFlash('error', 'Ya existe un registro con este email. Verifica tu correo para validar tu cuenta.');
                 } else {
-                    $existingUser->updateToken();
-                    $existingUser->setRequestedToken(new DateTime('+24 hours'));
-                    $userService->saveUser($existingUser);
-                    $mailService->sendTokenEmail($email, $existingUser->getToken());
-                    $this->addFlash('success', 'Se ha reenviado un nuevo email. Verifica tu correo para validar tu cuenta.');
+                    try{
+                        $existingUser->updateToken();
+                        $existingUser->setRequestedToken(new DateTime('+24 hours'));
+                        $userService->saveUser($existingUser);
+                        if($mailService->sendTokenEmail($email, $existingUser->getToken())){
+                            $this->addFlash('success', 'Se ha reenviado un nuevo email. Verifica tu correo para validar tu cuenta.');
+                        } else {
+                            $this->addFlash('error', 'No se pudo enviar el correo. Intente nuevamente más tarde.');
+                        }
+                    }catch(Exception $e) {
+                        $this->logger->error('Error actualizando usuario: ' . $e->getMessage());
+                        $this->addFlash('error', 'Ocurrió un error durante el proceso. Inténtalo de nuevo.');
+                    }
                 }
             } else {
-                $newUser = new User($email);
-                $newUser->setPassword($passwordHasher->hashPassword($newUser, $password));
-                $newUser->setRequestedToken(new DateTime('+24 hours'));
-                $userService->saveUser($newUser);
                 try {
-                    $mailService->sendTokenEmail($email, $newUser->getToken());
-                } catch (Exception $e) {
-                    $this->addFlash('error', 'No se pudo enviar el correo: ' . $e->getMessage());
-                    return $this->redirectToRoute('app_register');
+                    $newUser = new User($email);
+                    $newUser->setPassword($passwordHasher->hashPassword($newUser, $password));
+                    $newUser->setRequestedToken(new DateTime('+24 hours'));
+                    $userService->saveUser($newUser);
+                    if($mailService->sendTokenEmail($email, $newUser->getToken())){
+                        $this->addFlash('success', 'Registro exitoso. Verifica tu correo para validar tu cuenta.');
+                    } else {
+                        $this->addFlash('error', 'No se pudo enviar el correo. Intente nuevamente más tarde.');
+                    }
+                }catch (\Exception $e){
+                    $this->logger->error('Error creando usuario: ' . $e->getMessage());
+                    $this->addFlash('error', 'Ocurrió un error durante el registro. Inténtalo de nuevo.');
                 }
-                $this->addFlash('success', 'Registro exitoso. Verifica tu correo para validar tu cuenta.');
             }
         }
 
@@ -80,6 +88,4 @@ class UserController extends AbstractController
     public function logout(): void
     {
     }
-
-
 }
