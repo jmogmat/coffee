@@ -29,7 +29,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, SoftDel
     private ?int $id = null;
 
     /**
-     * @var list<string> The user roles
+     * @var array
+     * @ORM\Column(type="json", nullable=false)
      */
     #[ORM\Column]
     private array $roles = [];
@@ -63,6 +64,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, SoftDel
         $this->createdAt = $this->updatedAt = new DateTime();
         $this->updatetoken();
         $this->requested_token=new DateTime();
+        $this->roles = [self::ROLE_USER];
 
     }
 
@@ -126,7 +128,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, SoftDel
      */
     public function setRoles(array $roles): static
     {
-        $this->roles = $roles;
+        if ($this->roles !== $roles) {
+            $this->roles = $roles;
+        }
 
         return $this;
     }

@@ -59,27 +59,27 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $expirationDate = new DateTime('-24 hours');
         $qb = $this->createQueryBuilder('u');
         $qb->andWhere($qb->expr()->eq('u.token', ':token'));
-        $qb->andWhere($qb->expr()->gt('u.requestedToken', ':expirationDate'));
+        $qb->andWhere($qb->expr()->gt('u.requested_token', ':expirationDate'));
         $qb->setParameter('token', $user->getToken());
         $qb->setParameter('expirationDate', $expirationDate);
-        return $qb->getQuery()->getOneOrNullResult();
+        return $qb->getQuery()->getOneOrNullResult() !== null;
     }
 
     public function updateUser(User $user): void{
 
-        $currentRoles = $user->getRoles();
+        try {
+            $this->getEntityManager()->beginTransaction();
+            if(!$user->isActive() && $user->isPending()){
+                $user->setAsActive();
+            }
+            $this->getEntityManager()->persist($user);
+            $this->getEntityManager()->flush();
+            $this->getEntityManager()->commit();
 
-        if (!in_array(User::ROLE_USER, $currentRoles, true)) {
-            $currentRoles[] = User::ROLE_USER;
-            $user->setRoles($currentRoles);
+        }catch(\Exception $e) {
+           $this->getEntityManager()->rollback();
+            throw $e;
         }
-
-        if(!$user->isActive() && $user->isPending()){
-           $user->setAsActive();
-        }
-
-        $this->getEntityManager()->persist($user);
-        $this->getEntityManager()->flush();
 
     }
 
