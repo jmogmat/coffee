@@ -36,7 +36,7 @@ class AccountController extends AbstractController
         $this->userService->activateUser($user);
 
         $this->addFlash('success', 'Cuenta verificada correctamente.');
-        return $this->redirectToRoute('app_index');
+        return $this->redirectToRoute('app_register_and_login');
     }
 
 

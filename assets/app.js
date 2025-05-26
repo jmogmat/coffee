@@ -1,4 +1,7 @@
+import { registerVueControllerComponents } from '@symfony/ux-vue';
 import './bootstrap.js';
+import { createApp } from 'vue';
+import RegisterForm from './vue/controllers/registerLoginForm.vue';
 /*
  * Welcome to your app's main JavaScript file!
  *
@@ -8,3 +11,11 @@ import './bootstrap.js';
 
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.css';
+
+
+registerVueControllerComponents(require.context('./vue/controllers', true, /\.vue$/));
+registerVueControllerComponents();
+
+const app = createApp({});
+app.component('register-form', RegisterForm);
+app.mount('#vue-register');
