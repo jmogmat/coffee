@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Registro{% endblock %}
+
+{% block body %}
+    <h1>Registro</h1>
+
+    <div class="form-container">
+        <div class="register-form">
+            <h2>Registro</h2>
+            {{ form_start(registrationForm) }}  {# Formulario de registro #}
+            {{ form_widget(registrationForm) }}
+            <button type="submit">Registrar</button>
+            {{ form_end(registrationForm) }}
+        </div>
+    </div>
+
+    {# Mostrar mensajes de éxito o error para ambos formularios #}
+    {% for label, messages in app.flashes %}
+        <div class="alert alert-{{ label }}">
+            {{ messages|join(', ') }}
+        </div>
+    {% endfor %}
+{% endblock %}
+
+

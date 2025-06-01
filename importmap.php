@@ -29,4 +29,29 @@ return [
         'version' => '5.3.3',
         'type' => 'css',
     ],
+    'vue' => [
+        'version' => '3.5.15',
+        'package_specifier' => 'vue/dist/vue.esm-bundler.js',
+    ],
+    '@vue/runtime-dom' => [
+        'version' => '3.5.15',
+    ],
+    '@vue/compiler-dom' => [
+        'version' => '3.5.15',
+    ],
+    '@vue/shared' => [
+        'version' => '3.5.15',
+    ],
+    '@vue/runtime-core' => [
+        'version' => '3.5.15',
+    ],
+    '@vue/compiler-core' => [
+        'version' => '3.5.15',
+    ],
+    '@vue/reactivity' => [
+        'version' => '3.5.15',
+    ],
+    '@symfony/ux-vue' => [
+        'path' => './vendor/symfony/ux-vue/assets/dist/loader.js',
+    ],
 ];
