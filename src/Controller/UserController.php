@@ -7,6 +7,8 @@ use App\Form\RegistrationFormType;
 use App\Form\LoginFormType;
 use App\Service\Mailer\MailService;
 use App\Service\User\UserService;
+use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
@@ -111,10 +113,24 @@ class UserController extends AbstractController
     }
 
 
-
-
     #[Route('/logout', name: 'app_logout')]
     public function logout(): void
     {
     }
+
+    #[Route('/api/current-user', name: 'api_current_user')]
+    public function currentUser(Security $security): JsonResponse
+    {
+        $user = $security->getUser();
+
+        if (!$user) {
+            return new JsonResponse(null, 204);
+        }
+
+        return new JsonResponse([
+            'username' => $user->getUserIdentifier(),
+            'email' => $user->getEmail(),
+        ]);
+    }
+
 }

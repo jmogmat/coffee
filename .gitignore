@@ -36,3 +36,6 @@ yarn-error.log
 ###< lexik/jwt-authentication-bundle ###
 sendgrid.env
 sendgrid.env
+
+# Ignorar configuración de JetBrains IDEs
+.idea/
