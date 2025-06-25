@@ -1,41 +1,10 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1">
-    <title>Index</title>
+{# templates/index.html.twig #}
+{% extends 'base.html.twig' %}
 
-    {# Aquí importamos los estilos compilados (incluye Bootstrap CSS) #}
-    {{ encore_entry_link_tags('app') }}
-</head>
-<body>
+{% block title %}Inicio - MiApp{% endblock %}
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="{{ path('app_index') }}">MiApp</a>
+{% block body %}
+    <h1>Bienvenido a MiApp</h1>
+    <p>Esta es la página de inicio de la aplicación.</p>
+{% endblock %}
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
-            <div id="vue-navbar-user">
-                {# Aquí Vue montará el componente de usuario #}
-            </div>
-        </div>
-    </div>
-</nav>
-
-<div class="container mt-5">
-    <h3>Estás en el Index</h3>
-</div>
-
-{# Aquí los scripts JS compilados (incluye Bootstrap JS) #}
-
-{{ encore_entry_link_tags('app') }}
-{{ encore_entry_script_tags('app') }}
-
-</body>
-</html>

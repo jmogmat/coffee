@@ -1,20 +1,21 @@
-import { registerVueControllerComponents } from '@symfony/ux-vue';
-import './bootstrap.js';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/app.css';
-import RegisterForm from './vue/controllers/registerLoginForm.vue';
+import './bootstrap.js';
+
 import { createApp } from 'vue';
+import RegisterForm from './vue/controllers/registerLoginForm.vue';
 import UserMenu from './vue/controllers/index.vue';
 
-// Instancia para el menú de usuario
-const appUserMenu = createApp({});
-appUserMenu.component('user-menu', UserMenu);
-appUserMenu.mount('#vue-navbar-user');
 
-// Instancia para el formulario de registro/login
-const appRegisterForm = createApp({});
-appRegisterForm.component('register-form', RegisterForm);
-appRegisterForm.mount('#vue-register');
+document.addEventListener('DOMContentLoaded', () => {
+    const registerEl = document.getElementById('vue-register');
+    if (registerEl) {
+        createApp(RegisterForm).mount(registerEl);
+    }
 
-registerVueControllerComponents(require.context('./vue/controllers', true, /\.vue$/));
-registerVueControllerComponents();
+    const userMenuEl = document.getElementById('vue-navbar-user');
+    if (userMenuEl) {
+        createApp(UserMenu).mount(userMenuEl);
+    }
+});

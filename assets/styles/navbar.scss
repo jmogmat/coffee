@@ -10,11 +10,17 @@
 
   .nav-link:hover,
   .dropdown-item:hover {
-    color: #ffcc00;
+    color: greenyellow;
   }
 
   // Para el dropdown
   .dropdown-menu {
     background-color: #003366;
+  }
+
+  .dropdown-menu.show {
+    display: block;
+    position: absolute;
+    z-index: 1000;
   }
 }

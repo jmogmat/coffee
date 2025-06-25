@@ -1,4 +1,5 @@
 const Encore = require('@symfony/webpack-encore');
+const webpack = require('webpack');
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
 // It's useful when you use tools that rely on webpack.config.js file.
@@ -7,6 +8,7 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 }
 
 Encore
+
     // directory where compiled assets will be stored
     .setOutputPath('public/build/')
     // public path used by the web server to access the output path
@@ -59,6 +61,13 @@ Encore
         config.useBuiltIns = 'usage';
         config.corejs = '3.23';
     })
+    .addPlugin(
+        new webpack.DefinePlugin({
+            __VUE_OPTIONS_API__: true,
+            __VUE_PROD_DEVTOOLS__: false,
+            __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: false,
+        })
+    );
 
     // enables Sass/SCSS support
     //.enableSassLoader()
@@ -76,5 +85,6 @@ Encore
     // uncomment if you're having problems with a jQuery plugin
     //.autoProvidejQuery()
 ;
+
 
 module.exports = Encore.getWebpackConfig();
