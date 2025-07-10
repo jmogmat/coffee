@@ -1,1 +1,5 @@
-@import "~bootstrap/scss/bootstrap";
+@use 'bootstrap' as bs;
+@use './navbar.scss' as nv;
+body {
+    background-color: lightgray;
+}
