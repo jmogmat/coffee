@@ -1,6 +1,6 @@
 <template>
   <ul class="navbar-nav">
-    <li class="nav-item dropdown">
+    <li class="nav-item dropdown" v-if="loaded">
       <a
           class="nav-link dropdown-toggle"
           href="#"
@@ -9,7 +9,7 @@
           data-bs-toggle="dropdown"
           aria-expanded="false"
       >
-        {{ user?.username || user?.email || 'Usuario/a' }}
+        {{ user ? (user.username || user.email) : 'Usuario/a' }}
       </a>
       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
         <li v-if="user">
@@ -28,7 +28,10 @@
 export default {
   name: 'UserMenu',
   data() {
-    return { user: null };
+    return {
+      user: null,
+      loaded: false,
+    };
   },
   async mounted() {
     try {
@@ -37,6 +40,7 @@ export default {
     } catch {
       this.user = null;
     }
-  }
+    this.loaded = true; // for rendering once we try to load user
+  },
 };
 </script>

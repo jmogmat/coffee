@@ -7,15 +7,27 @@ import { createApp } from 'vue';
 import RegisterForm from './vue/controllers/registerLoginForm.vue';
 import UserMenu from './vue/controllers/index.vue';
 
-
-document.addEventListener('DOMContentLoaded', () => {
+function mountVueComponents() {
     const registerEl = document.getElementById('vue-register');
-    if (registerEl) {
-        createApp(RegisterForm).mount(registerEl);
+    if (registerEl && !registerEl.__vue_app__) {
+        const app = createApp(RegisterForm);
+        app.mount(registerEl);
+        registerEl.__vue_app__ = app;
     }
 
     const userMenuEl = document.getElementById('vue-navbar-user');
-    if (userMenuEl) {
-        createApp(UserMenu).mount(userMenuEl);
+    if (userMenuEl && !userMenuEl.__vue_app__) {
+        const app = createApp(UserMenu);
+        app.mount(userMenuEl);
+        userMenuEl.__vue_app__ = app;
     }
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', mountVueComponents);
+} else {
+    mountVueComponents();
+}
+
+// ✅ Turbo Drive: volver a montar componentes Vue tras navegación parcial
+document.addEventListener('turbo:load', mountVueComponents);
