@@ -1,5 +1,6 @@
 @use 'bootstrap' as bs;
 @use './navbar.scss' as nv;
 body {
-    background-color: lightgray;
+    min-block-size: 100vb;
+    background-image:radial-gradient(at 50% 100%, rgb(253, 230, 138), rgb(124, 58, 237), rgb(12, 74, 110));
 }
