@@ -7,6 +7,7 @@ import { createApp } from 'vue';
 import RegisterForm from './vue/controllers/registerLoginForm.vue';
 import UserMenu from './vue/controllers/index.vue';
 
+
 function mountVueComponents() {
     const registerEl = document.getElementById('vue-register');
     if (registerEl && !registerEl.__vue_app__) {
@@ -31,3 +32,4 @@ if (document.readyState === 'loading') {
 
 // ✅ Turbo Drive: volver a montar componentes Vue tras navegación parcial
 document.addEventListener('turbo:load', mountVueComponents);
+

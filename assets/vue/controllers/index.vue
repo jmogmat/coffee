@@ -9,7 +9,7 @@
           data-bs-toggle="dropdown"
           aria-expanded="false"
       >
-        {{ user ? (user.username || user.email) : 'Usuario/a' }}
+        {{ user ? (user.username || user.email) : 'Acceso' }}
       </a>
       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
         <li v-if="user">

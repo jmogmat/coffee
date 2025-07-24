@@ -19,6 +19,8 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('email', EmailType::class, [
                 'label' => 'Email',
+                'attr' => ['class' => 'form-control'],
+                'label_attr' => ['class' => 'form-label'],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Por favor ingrese un email',
@@ -29,6 +31,8 @@ class RegistrationFormType extends AbstractType
                 'type' => PasswordType::class,
                 'first_options' => [
                     'label' => 'Contraseña',
+                    'attr' => ['class' => 'form-control'],
+                    'label_attr' => ['class' => 'form-label'],
                     'constraints' => [
                         new NotBlank([
                             'message' => 'Por favor ingrese una contraseña',
@@ -42,6 +46,8 @@ class RegistrationFormType extends AbstractType
                 ],
                 'second_options' => [
                     'label' => 'Confirmar contraseña',
+                    'attr' => ['class' => 'form-control'],
+                    'label_attr' => ['class' => 'form-label'],
                 ],
                 'invalid_message' => 'Las contraseñas no coinciden',
             ]);

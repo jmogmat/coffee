@@ -17,6 +17,8 @@ class LoginFormType extends AbstractType
         $builder
             ->add('email', EmailType::class, [
                 'label' => 'Email',
+                'attr' => ['class' => 'form-control'],
+                'label_attr' => ['class' => 'form-label'],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Por favor ingrese su email',
@@ -25,6 +27,8 @@ class LoginFormType extends AbstractType
             ])
             ->add('password', PasswordType::class, [
                 'label' => 'Contraseña',
+                'attr' => ['class' => 'form-control'],
+                'label_attr' => ['class' => 'form-label'],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Por favor ingrese su contraseña',

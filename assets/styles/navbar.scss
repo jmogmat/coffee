@@ -1,19 +1,23 @@
 .navbar {
-  color: black;
+  color: white;
   .navbar-brand,
   .nav-link,
   .dropdown-menu {
-    color: black;
+    color: white;
   }
-
-  .nav-link:hover,
-  .dropdown-item:hover {
-    color: red;
-  }
-
-  // Para el dropdown
   .dropdown-menu {
-    background-color: #003366;
+    background-color: white;
+    .dropdown-item {
+      color: black;
+      &:hover {
+        color: #0d6efd;
+        background-color: rgba(13, 110, 253, 0.1);
+      }
+    }
+  }
+
+  .dropdown-menu {
+    background-color: white;
   }
 
   .dropdown-menu.show {
