@@ -1,6 +1,13 @@
-.login-page {
+.register-page {
   background-image: linear-gradient(rgb(17, 24, 39), rgb(88, 28, 135), rgb(124, 58, 237));
   color: white;
+
+  .fullside-img {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+  }
+
+
+
 }
-
-

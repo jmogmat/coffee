@@ -2,20 +2,44 @@
 
 {% block title %}Registro{% endblock %}
 
-{% block body %}
-    <h1>Registro</h1>
+{% block body_class %}register-page{% endblock %}
 
-    <div class="form-container">
-        <div class="register-form">
-            <h2>Registro</h2>
-            {{ form_start(registrationForm) }}  {# Formulario de registro #}
-            {{ form_widget(registrationForm) }}
-            <button type="submit">Registrar</button>
-            {{ form_end(registrationForm) }}
+{% block page_body %}
+    <div class="container-fluid px-0">
+        <div class="row min-vh-100 flex-column flex-md-row g-0">
+            {# Columna izquierda con imagen grande en desktop #}
+            <div class="col-md-6 d-none d-md-block p-0">
+                <div class="h-100 w-100">
+                    <img src="{{ asset('images/cup_of_coffee.png') }}" alt="Decorativo" class="img-half-cover">
+                </div>
+            </div>
+            {# Imagen alternativa y logo en móviles #}
+            <div class="d-md-none text-center p-4">
+                <img src="{{ asset('images/space_coffee.png') }}" alt="" class="img-fluid mb-3" style="max-height: 300px;">
+                <div class="my-3">
+                    <img src="{{ asset('images/coffee-beans.svg') }}" alt="Logo Coffee" width="60" height="60">
+                </div>
+            </div>
+
+            {# Columna derecha con el formulario #}
+            <div class="col-md-6 d-flex align-items-center justify-content-center p-4">
+                <div class="w-100" style="max-width: 400px;">
+                    <p style="color:white">¿Ya tienes cuenta? <a href="/login">Inicia sesión →</a></p>
+                    <h1 class="text-center mb-4">Regístrate en Coffee</h1>
+                    {{ form_start(registrationForm) }}
+                    {{ form_widget(registrationForm) }}
+                    <br>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-success">Crear cuenta</button>
+                    </div>
+                    {{ form_end(registrationForm) }}
+                </div>
+            </div>
+
         </div>
     </div>
 
-    {# Mostrar mensajes de éxito o error para ambos formularios #}
+    {# Flash messages #}
     {% for label, messages in app.flashes %}
         <div class="alert alert-{{ label }}">
             {{ messages|join(', ') }}

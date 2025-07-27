@@ -1,34 +1,36 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Registro {% endblock %}
+{% block title %}Login {% endblock %}
 
 {% block body_class %}login-page{% endblock %}
 
 {% block body %}
-    <h1>Logueate en Coffee</h1>
-    <div class="form-container">
-        <div class="login-form">
-            {% if error %}
-                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-            {% endif %}
-            {{ form_start(form) }}  {# Formulario de login #}
-            <div>
+    <div class="container d-flex flex-column align-items-center justify-content-center" style="min-height: 50vh;">
+        <div class="row justify-content-center w-100">
+            <div class="col-md-6 col-lg-4">
+                <h1 class="text-center mb-4">Logueate en Coffee</h1>
+                {% if error %}
+                    <div class="alert alert-danger">
+                        {{ error.messageKey|trans(error.messageData, 'security') }}
+                    </div>
+                {% endif %}
+
+                {{ form_start(form) }}
                 {{ form_row(form.email) }}
-            </div>
-            <div>
                 {{ form_row(form.password) }}
+                <br>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-success">Iniciar sesión</button>
+                </div>
+                {{ form_end(form) }}
+
+                {# Mensajes flash #}
+                {% for label, messages in app.flashes %}
+                    <div class="alert alert-{{ label }} mt-3">
+                        {{ messages|join(', ') }}
+                    </div>
+                {% endfor %}
             </div>
-            <button type="submit">Iniciar sesión</button>
-            {{ form_end(form) }}
         </div>
     </div>
-
-    {# Mostrar mensajes de éxito o error para ambos formularios #}
-    {% for label, messages in app.flashes %}
-        <div class="alert alert-{{ label }}">
-            {{ messages|join(', ') }}
-        </div>
-    {% endfor %}
 {% endblock %}
-
-

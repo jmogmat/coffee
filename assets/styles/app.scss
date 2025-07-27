@@ -2,7 +2,45 @@
 @use './navbar.scss' as nv;
 @use './index.scss' as index;
 @use './login.scss' as login;
+@use './register.scss' as register;
 body {
     min-block-size: 100vb;
     background-image:radial-gradient(at 50% 100%, rgb(253, 230, 138), rgb(124, 58, 237), rgb(12, 74, 110));
+    color: white;
 }
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='white' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.navbar-toggler {
+    border: 1px solid white;
+    background-color: transparent;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+}
+
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.5);
+}
+
+.logo-glow {
+    font-weight: bold;
+    color: #FFD700;
+    animation: glowPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+    0% {
+        text-shadow: 0 0 5px #FFD700, 0 0 10px #FFD700;
+        opacity: 1;
+    }
+    50% {
+        text-shadow: 0 0 15px #FFD700, 0 0 25px #FFD700;
+        opacity: 0.7;
+    }
+    100% {
+        text-shadow: 0 0 5px #FFD700, 0 0 10px #FFD700;
+        opacity: 1;
+    }
+}
+

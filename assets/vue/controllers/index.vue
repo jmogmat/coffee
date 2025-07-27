@@ -1,6 +1,7 @@
 <template>
-  <ul class="navbar-nav">
-    <li class="nav-item dropdown" v-if="loaded">
+  <ul class="navbar-nav" v-if="loaded">
+    <!-- Si el usuario está logueado -->
+    <li class="nav-item dropdown" v-if="user">
       <a
           class="nav-link dropdown-toggle"
           href="#"
@@ -9,18 +10,22 @@
           data-bs-toggle="dropdown"
           aria-expanded="false"
       >
-        {{ user ? (user.username || user.email) : 'Acceso' }}
+        {{ user.username || user.email }}
       </a>
       <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-        <li v-if="user">
-          <a class="dropdown-item" href="/logout">Cerrar sesión</a>
-        </li>
-        <template v-else>
-          <li><a class="dropdown-item" href="/login">Iniciar sesión</a></li>
-          <li><a class="dropdown-item" href="/register">Registrarse</a></li>
-        </template>
+        <li><a class="dropdown-item" href="/logout">Cerrar sesión</a></li>
       </ul>
     </li>
+
+    <!-- Si el usuario NO está logueado -->
+    <template v-else>
+      <li class="nav-item">
+        <a class="btn btn-outline-light me-2 my-2 my-lg-0" href="/login">Iniciar sesión</a>
+      </li>
+      <li class="nav-item">
+        <a class="btn btn-warning my-2 my-lg-0" href="/register">Registrarse</a>
+      </li>
+    </template>
   </ul>
 </template>
 
@@ -40,7 +45,8 @@ export default {
     } catch {
       this.user = null;
     }
-    this.loaded = true; // for rendering once we try to load user
+    this.loaded = true;
   },
 };
 </script>
+

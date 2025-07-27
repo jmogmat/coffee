@@ -10,27 +10,41 @@
     {{ encore_entry_script_tags('app') }}
 </head>
 <body class="{% block body_class %}{% endblock %}">
-<nav class="navbar navbar-expand-lg py-4">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="{{ path('app_index') }}">Coffee
-        <img src="{{ asset('images/coffee-beans.svg') }}" alt="Grano de café" width="44" height="44"></a>
-        <button class="navbar-toggler" type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown"
-                aria-expanded="false"
-                aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
-            <div id="vue-navbar-user"></div> {# Vue insertará el contenido aquí #}
-        </div>
-    </div>
-</nav>
 
-<div class="container mt-5">
-    {% block body %}{% endblock %}
-</div>
+{# Solo mostrar el navbar si no es una página tipo registro #}
+{% if block('body_class') != 'register-page' %}
+    <nav class="navbar navbar-expand-lg py-4">
+        <div class="container-fluid">
+            <a class="navbar-brand logo-glow mx-auto d-lg-none text-center" href="{{ path('app_index') }}">
+                Coffee
+                <img src="{{ asset('images/coffee-beans.svg') }}" alt="Grano de café" width="44" height="44">
+            </a>
+            <a class="navbar-brand logo-glow d-none d-lg-block" href="{{ path('app_index') }}">
+                Coffee
+                <img src="{{ asset('images/coffee-beans.svg') }}" alt="Grano de café" width="44" height="44">
+            </a>
+
+            <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavDropdown"
+                    aria-controls="navbarNavDropdown"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+                <div id="vue-navbar-user"></div>
+            </div>
+        </div>
+    </nav>
+{% endif %}
+
+{# Contenido principal #}
+{% block page_body %}
+    <div class="container mt-5">
+        {% block body %}{% endblock %}
+    </div>
+{% endblock %}
+
 </body>
 </html>
-
