@@ -100,7 +100,7 @@ class UserController extends AbstractController
     {
         $email = (new Email())
             ->from('no-reply@demomailtrap.com')
-            ->to('jmog.matias@gmail.com') // cualquier correo
+            ->to('jmog.matias@gmail.com')
             ->subject('Prueba de correo')
             ->text('Esto es una prueba');
 

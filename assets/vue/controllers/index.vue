@@ -17,7 +17,6 @@
       </ul>
     </li>
 
-    <!-- Si el usuario NO está logueado -->
     <template v-else>
       <li class="nav-item">
         <a class="btn btn-outline-light me-2 my-2 my-lg-0" href="/login">Iniciar sesión</a>

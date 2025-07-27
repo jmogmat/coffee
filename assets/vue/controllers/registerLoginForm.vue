@@ -18,14 +18,13 @@ const email = ref('')
 const password = ref('')
 
 function submitForm() {
-  // Aqui puedes manejar el envío de datos, por ejemplo con fetch o axios
+
   console.log('Formulario enviado:', {
     username: username.value,
     email: email.value,
     password: password.value,
   })
 
-  // Limpiar formulario
   username.value = ''
   email.value = ''
   password.value = ''
