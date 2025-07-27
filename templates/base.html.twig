@@ -14,6 +14,7 @@
 {% if block('body_class') != 'register-page' %}
     <nav class="navbar navbar-expand-lg py-4">
         <div class="container-fluid">
+            {# Logo principal #}
             <a class="navbar-brand logo-glow mx-auto d-lg-none text-center" href="{{ path('app_index') }}">
                 Coffee
                 <img src="{{ asset('images/coffee-beans.svg') }}" alt="Grano de café" width="44" height="44">
@@ -23,6 +24,7 @@
                 <img src="{{ asset('images/coffee-beans.svg') }}" alt="Grano de café" width="44" height="44">
             </a>
 
+            {# Botón del menú hamburguesa #}
             <button class="navbar-toggler" type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#navbarNavDropdown"
@@ -31,11 +33,62 @@
                     aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
-                <div id="vue-navbar-user"></div>
+
+            {# Contenido colapsable #}
+            <div class="collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
+
+                {# Menú principal a la izquierda #}
+                <ul class="navbar-nav me-auto">
+                    {# Dropdown de Productos #}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="productosDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Productos
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="productosDropdown">
+                            <li class="dropdown-header">MÉTODO DE TUESTE</li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/productos?tueste=espresso">Espresso</a></li>
+                            <li><a class="dropdown-item" href="/productos?tueste=omni">Omni</a></li>
+                            <li><a class="dropdown-item" href="/productos?tueste=filtrado">Filtrado</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li class="dropdown-header">ORIGEN</li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/productos?tueste=espresso">Africa/Asia</a></li>
+                            <li><a class="dropdown-item" href="/productos?tueste=espresso">Centro/Sudamérica</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li class="dropdown-header">PERFIL DE TUESTE</li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/productos?tueste=espresso">Cítrico</a></li>
+                            <li><a class="dropdown-item" href="/productos?tueste=espresso">Dulce</a></li>
+                        </ul>
+                    </li>
+
+                    {# Blog #}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/blog">Blog</a>
+                    </li>
+                </ul>
+
+                {# Parte derecha con carrito y usuario (Vue) #}
+                <ul class="navbar-nav align-items-center">
+                    {# Carrito #}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/carrito">
+                            🛒
+                        </a>
+                    </li>
+
+                    {# Menú de usuario con Vue #}
+                    <li class="nav-item">
+                        <div id="vue-navbar-user"></div>
+                    </li>
+                </ul>
+
             </div>
         </div>
     </nav>
+
 {% endif %}
 
 {# Contenido principal #}

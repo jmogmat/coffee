@@ -3,10 +3,12 @@
 
 {% block title %}Inicio - Coffee{% endblock %}
 
-{% block body %}
-    <div class="d-flex flex-column justify-content-center align-items-center min-vh-50 text-center">
-        <h1>Bienvenido a Coffee</h1>
-        <p>Esta es la página de inicio de la aplicación.</p>
+{% block page_body %}
+    <div class="hero-image w-100">
+        <img src="{{ asset('images/portrait_image.jpg') }}" alt="Imagen de bienvenida" class="img-fluid w-100" style="max-height: 600px; object-fit: cover;">
+    </div>
+    <div>
+        <h1>Descubre la especialidad del Café</h1>
     </div>
 {% endblock %}
 
