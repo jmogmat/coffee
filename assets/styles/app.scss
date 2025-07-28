@@ -3,6 +3,7 @@
 @use './index.scss' as index;
 @use './login.scss' as login;
 @use './register.scss' as register;
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
 body {
     min-block-size: 100vb;
     background-image:radial-gradient(at 50% 100%, rgb(253, 230, 138), rgb(124, 58, 237), rgb(12, 74, 110));
