@@ -22,16 +22,37 @@
         </video>
     </div>
     <br>
-    <div class="d-flex justify-content-between flex-column flex-md-row">
-        <div class="div_text_index w-100 w-md-50 d-flex flex-column justify-content-center align-items-center" style="height: 100%; min-height: 400px;">
-            <h3 class="h3_title_intro text-center mb-3">El comienzo</h3>
-            <p class="text-center px-3" style="max-width: 90%;">
-                Todo inicia con las bayas del cafeto, frutos rojos y brillantes que encierran en su interior los preciados granos de café. Una vez cosechadas en su punto óptimo de madurez, estas bayas son cuidadosamente procesadas para separar los granos. Tras el secado y el tueste, los granos se muelen y se someten al proceso de extracción, momento en el que el agua caliente entra en contacto con el café molido. Es aquí donde se libera su esencia: aceites, aromas y sabores únicos que dan vida a una bebida rica y compleja. La extracción no solo revela el carácter del grano, sino también la dedicación detrás de cada etapa del proceso.            </p>
+    <div class="d-flex justify-content-between flex-column flex-lg-row">
+        <div class="div_text_index w-100 w-lg-50 d-flex flex-column justify-content-center align-items-center" style="height: 100%; min-height: 400px;">
+            <h3 class="h3_title_intro text-center mb-3">El comienzo de la magía</h3>
+            <p class="p_info_coffee text-center px-3" style="max-width: 90%;">
+                Todo inicia con las bayas del cafeto, frutos rojos y brillantes que encierran en su interior los preciados granos de café. Una vez cosechadas en su punto óptimo de madurez, estas bayas son cuidadosamente procesadas para separar los granos.
+            </p>
         </div>
-        <div class="div_image_index w-100 w-md-50 d-flex justify-content-center align-items-center">
-            <img src="{{ asset('images/bayas-cafe.jpg') }}" alt="Bayas de cafe" width="800" height="500" class="">
+        <div class="div_image_index w-100 w-lg-50 d-flex justify-content-center align-items-center">
+            <img src="{{ asset('images/bayas-cafe.jpg') }}" alt="Bayas de cafe" width="800" height="500" class="img-fluid image_beans">
         </div>
     </div>
+    <br>
+    <div class="d-flex justify-content-between flex-column flex-lg-row-reverse">
+        <div class="div_text_index w-100 w-lg-50 d-flex flex-column justify-content-center align-items-center" style="height: 100%; min-height: 400px;">
+            <h3 class="h3_title_intro text-center mb-3">El proceso del tueste</h3>
+            <p class="p_info_coffee_2 text-center px-3" style="max-width: 90%;">
+                Tras el secado y el tueste, los granos se muelen y se someten al proceso de extracción, momento en el que el agua caliente entra en contacto con el café molido. Es aquí donde se libera su esencia: aceites, aromas y sabores únicos que dan vida a una bebida rica y compleja. La extracción no solo revela el carácter del grano, sino también la dedicación detrás de cada etapa del proceso.
+            </p>
+        </div>
+        <div class="div_image_index w-100 w-lg-50 d-flex justify-content-center align-items-center">
+            <img src="{{ asset('images/toast_coffee.png') }}" alt="Granos de cafe" width="800" height="500" class="img-fluid image_beans">
+        </div>
+    </div>
+
+    <br>
+    <div class="w-100 w-lg-50 d-flex flex-column justify-content-center align-items-center">
+        <h3 class="h3_title_intro text-center mb-3">Lo siguiente es disfrutar :)</h3>
+        <img src="{{ asset('images/table_grains_leaves.jpg') }}" alt="Taza de cafe" class="img-fluid image_beans" style="max-width: 80%; height: 50%;">
+    </div>
+
+
 
 
 {% endblock %}
