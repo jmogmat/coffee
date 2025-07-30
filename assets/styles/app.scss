@@ -45,3 +45,34 @@ body {
     }
 }
 
+.before-enter {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s ease-out;
+}
+
+.enter {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.animate-from-left.before-enter {
+    transform: translateX(-60px);
+    opacity: 0;
+}
+
+.animate-from-left.enter {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.animate-from-right.before-enter {
+    transform: translateX(60px);
+    opacity: 0;
+}
+
+.animate-from-right.enter {
+    transform: translateX(0);
+    opacity: 1;
+}
+

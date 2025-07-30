@@ -6,7 +6,8 @@ import './bootstrap.js';
 import { createApp } from 'vue';
 import RegisterForm from './vue/controllers/registerLoginForm.vue';
 import UserMenu from './vue/controllers/index.vue';
-
+import AnimatedSections from './vue/controllers/animatedSections.vue';
+import ScrollAnimate from './vue/directives/v-scroll-animate';
 
 function mountVueComponents() {
     const registerEl = document.getElementById('vue-register');
@@ -22,6 +23,14 @@ function mountVueComponents() {
         app.mount(userMenuEl);
         userMenuEl.__vue_app__ = app;
     }
+
+    const animatedSectionsEl = document.getElementById('vue-animated-sections');
+    if (animatedSectionsEl && !animatedSectionsEl.__vue_app__) {
+        const app = createApp(AnimatedSections);
+        app.directive('scroll-animate', ScrollAnimate); // registra la directiva
+        app.mount(animatedSectionsEl);
+        animatedSectionsEl.__vue_app__ = app;
+    }
 }
 
 if (document.readyState === 'loading') {
@@ -30,6 +39,4 @@ if (document.readyState === 'loading') {
     mountVueComponents();
 }
 
-// ✅ Turbo Drive: volver a montar componentes Vue tras navegación parcial
 document.addEventListener('turbo:load', mountVueComponents);
-
